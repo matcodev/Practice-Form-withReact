@@ -43,15 +43,20 @@ export default function App() {
     e.target.reset();
   };
 
-  const [favoritos, setFavoritos] = useState([{ id: '', personaje: '' }]);
+  const [favoritos, setFavoritos] = useState([]);
+
+  const agregarFavorito = id => {
+    console.log(id);
+    setFavoritos(id)
+  };
 
   return (
     <div className="container">
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container-fluid">
-          <a className="navbar-brand" href="#">
+          <h2 className="navbar-brand">
             Personajes Favoritos
-          </a>
+          </h2>
           <div className="dropdown">
             <button
               className="btn btn-secondary dropdown-toggle"
@@ -66,16 +71,20 @@ export default function App() {
               className="dropdown-menu dropdown-menu-end"
               aria-labelledby="dropdownMenuButton2"
             >
-              {favoritos.map(favorito => {
-                return (
-                  <li className="dropdown-item px-3">
-                    {favorito.personaje}
-                    <button className="btn btn-danger ms-5">
-                      <i className="fas fa-trash" />
-                    </button>
-                  </li>
-                );
-              })}
+              {favoritos.length > 0 ? (
+                favoritos.map(favorito => {
+                  return (
+                    <li className="dropdown-item px-3">
+                      {favorito.personaje}
+                      <button className="btn btn-danger ms-5">
+                        <i className="fas fa-trash" />
+                      </button>
+                    </li>
+                  );
+                })
+              ) : (
+                <li> Aún no hay favoritos</li>
+              )}
               <li>
                 <hr className="dropdown-divider" />
               </li>
@@ -120,9 +129,9 @@ export default function App() {
                   <div className="card-body">
                     <h5 className="card-title">{item.personaje}</h5>
                     <p className="card-text">{item.pelicula}</p>
-                    <a href="#" className="btn btn-light">
+                    <button onClick={() => agregarFavorito(item.id)} className="btn btn-light">
                       <i className="fas fa-heart text-danger" />
-                    </a>
+                    </button>
                   </div>
                 </div>
               </div>
