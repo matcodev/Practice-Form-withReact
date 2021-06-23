@@ -45,18 +45,15 @@ export default function App() {
 
   const [favoritos, setFavoritos] = useState([]);
 
-  const agregarFavorito = id => {
-    console.log(id);
-    setFavoritos(id)
+  const agregarFavorito = person => {
+    setFavoritos(favoritos.concat(person));
   };
 
   return (
     <div className="container">
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container-fluid">
-          <h2 className="navbar-brand">
-            Personajes Favoritos
-          </h2>
+          <h2 className="navbar-brand">Personajes Favoritos</h2>
           <div className="dropdown">
             <button
               className="btn btn-secondary dropdown-toggle"
@@ -65,18 +62,21 @@ export default function App() {
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              Favoritos <i className="fas fa-star text-warning" />
+              {favoritos.length} Favoritos <i className="fas fa-star text-warning" />
             </button>
             <ul
-              className="dropdown-menu dropdown-menu-end"
+              className="dropdown-menu dropdown-menu-end justify-content-end"
               aria-labelledby="dropdownMenuButton2"
             >
               {favoritos.length > 0 ? (
                 favoritos.map(favorito => {
                   return (
-                    <li className="dropdown-item px-3">
+                    <li key={favorito.id} className="dropdown-item px-3 d-flex justify-content-end">
                       {favorito.personaje}
-                      <button className="btn btn-danger ms-5">
+                      <button
+                        className="btn btn-danger ms-3"
+                        type="button"
+                      >
                         <i className="fas fa-trash" />
                       </button>
                     </li>
@@ -129,7 +129,10 @@ export default function App() {
                   <div className="card-body">
                     <h5 className="card-title">{item.personaje}</h5>
                     <p className="card-text">{item.pelicula}</p>
-                    <button onClick={() => agregarFavorito(item.id)} className="btn btn-light">
+                    <button
+                      onClick={() => agregarFavorito(item)}
+                      className="btn btn-light"
+                    >
                       <i className="fas fa-heart text-danger" />
                     </button>
                   </div>
