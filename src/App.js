@@ -49,8 +49,11 @@ export default function App() {
     setFavoritos(favoritos.concat(person));
   };
   const eliminarFavorito = id => {
-    setFavoritos(favoritos.filter(item => item.id !== id))
-  }
+    setFavoritos(favoritos.filter(item => item.id !== id));
+  };
+  const eliminarTodosFavorito = () => {
+    setFavoritos([]);
+  };
 
   return (
     <div className="container">
@@ -65,7 +68,8 @@ export default function App() {
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              {favoritos.length} Favoritos <i className="fas fa-star text-warning" />
+              {favoritos.length} Favoritos{' '}
+              <i className="fas fa-star text-warning" />
             </button>
             <ul
               className="dropdown-menu dropdown-menu-end justify-content-end"
@@ -74,12 +78,15 @@ export default function App() {
               {favoritos.length > 0 ? (
                 favoritos.map(favorito => {
                   return (
-                    <li key={favorito.id} className="dropdown-item px-3 d-flex justify-content-end">
+                    <li
+                      key={favorito.id}
+                      className="dropdown-item px-3 d-flex justify-content-end"
+                    >
                       {favorito.personaje}
                       <button
                         className="btn btn-danger ms-3"
                         type="button"
-                        onClick={()=> eliminarFavorito(favorito.id)}
+                        onClick={() => eliminarFavorito(favorito.id)}
                       >
                         <i className="fas fa-trash" />
                       </button>
@@ -87,13 +94,15 @@ export default function App() {
                   );
                 })
               ) : (
-                <li> Aún no hay favoritos</li>
+                <li className="dropdown-item px-3 d-flex justify-content-end">
+                  Aún no hay favoritos
+                </li>
               )}
               <li>
                 <hr className="dropdown-divider" />
               </li>
               <li className="d-grid gap-2">
-                <button className="dropdown-item">Eliminar todos</button>
+                <button className="dropdown-item" onClick={eliminarTodosFavorito}>Eliminar todos</button>
               </li>
             </ul>
           </div>
