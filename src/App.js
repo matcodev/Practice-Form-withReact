@@ -48,6 +48,9 @@ export default function App() {
   const agregarFavorito = person => {
     setFavoritos(favoritos.concat(person));
   };
+  const eliminarFavorito = id => {
+    setFavoritos(favoritos.filter(item => item.id !== id))
+  }
 
   return (
     <div className="container">
@@ -76,6 +79,7 @@ export default function App() {
                       <button
                         className="btn btn-danger ms-3"
                         type="button"
+                        onClick={()=> eliminarFavorito(favorito.id)}
                       >
                         <i className="fas fa-trash" />
                       </button>
